@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Form } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import Check from 'lucide-svelte/icons/check';
     import Copy from 'lucide-svelte/icons/copy';
     import ScanLine from 'lucide-svelte/icons/scan-line';
@@ -24,6 +25,8 @@
     import { confirm } from '@/routes/two-factor';
     import type { TwoFactorConfigContent } from '@/types';
 
+    const { __ } = useLang();
+
     let {
         requiresConfirmation,
         twoFactorEnabled,
@@ -45,27 +48,30 @@
     const modalConfig: TwoFactorConfigContent = $derived.by(() => {
         if (twoFactorEnabled) {
             return {
-                title: 'Two-factor authentication enabled',
-                description:
+                title: __('Two-factor authentication enabled'),
+                description: __(
                     'Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.',
-                buttonText: 'Close',
+                ),
+                buttonText: __('Close'),
             };
         }
 
         if (showVerificationStep) {
             return {
-                title: 'Verify authentication code',
-                description:
+                title: __('Verify authentication code'),
+                description: __(
                     'Enter the 6-digit code from your authenticator app',
-                buttonText: 'Continue',
+                ),
+                buttonText: __('Continue'),
             };
         }
 
         return {
-            title: 'Enable two-factor authentication',
-            description:
+            title: __('Enable two-factor authentication'),
+            description: __(
                 'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app',
-            buttonText: 'Continue',
+            ),
+            buttonText: __('Continue'),
         };
     });
 
@@ -185,7 +191,9 @@
                                     >
                                         <img
                                             src={qrCodeDataUrl}
-                                            alt="Two-factor authentication QR code"
+                                            alt={__(
+                                                'Two-factor authentication QR code',
+                                            )}
                                             class="size-full"
                                         />
                                     </div>
@@ -207,7 +215,7 @@
                             class="absolute inset-0 top-1/2 h-px w-full bg-border"
                         ></div>
                         <span class="relative bg-card px-2 py-1"
-                            >or, enter the code manually</span
+                            >{__('or, enter the code manually')}</span
                         >
                     </div>
 
@@ -293,14 +301,14 @@
                                         (showVerificationStep = false)}
                                     disabled={processing}
                                 >
-                                    Back
+                                    {__('Back')}
                                 </Button>
                                 <Button
                                     type="submit"
                                     class="w-auto flex-1"
                                     disabled={processing || code.length < 6}
                                 >
-                                    Confirm
+                                    {__('Confirm')}
                                 </Button>
                             </div>
                         </div>

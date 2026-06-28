@@ -1,18 +1,6 @@
-<script module lang="ts">
-    import { edit } from '@/routes/profile';
-
-    export const layout = {
-        breadcrumbs: [
-            {
-                title: 'Profile settings',
-                href: edit(),
-            },
-        ],
-    };
-</script>
-
 <script lang="ts">
-    import { Form, page } from '@inertiajs/svelte';
+    import { Form, page, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
     import AppHead from '@/components/AppHead.svelte';
     import DeleteUser from '@/components/DeleteUser.svelte';
@@ -27,19 +15,31 @@
     /* @chisel-email-verification */
     import { send } from '@/routes/verification';
     /* @end-chisel-email-verification */
+    import { edit } from '@/routes/profile';
+
+    const { __ } = useLang();
+
+    setLayoutProps({
+        breadcrumbs: [
+            {
+                title: __('Profile settings'),
+                href: edit(),
+            },
+        ],
+    });
 
     const user = $derived(page.props.auth.user);
 </script>
 
-<AppHead title="Profile settings" />
+<AppHead title={__('Profile settings')} />
 
-<h1 class="sr-only">Profile settings</h1>
+<h1 class="sr-only">{__('Profile settings')}</h1>
 
 <div class="flex flex-col space-y-6">
     <Heading
         variant="small"
-        title="Profile"
-        description="Update your name and email address"
+        title={__('Profile')}
+        description={__('Update your name and email address')}
     />
 
     <Form
@@ -49,7 +49,7 @@
     >
         {#snippet children({ errors, processing })}
             <div class="grid gap-2">
-                <Label for="name">Name</Label>
+                <Label for="name">{__('Name')}</Label>
                 <Input
                     id="name"
                     name="name"
@@ -57,13 +57,13 @@
                     value={user.name}
                     required
                     autocomplete="name"
-                    placeholder="Full name"
+                    placeholder={__('Full name')}
                 />
                 <InputError class="mt-2" message={errors.name} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">{__('Email address')}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -72,7 +72,7 @@
                     value={user.email}
                     required
                     autocomplete="username"
-                    placeholder="Email address"
+                    placeholder={__('Email address')}
                 />
                 <InputError class="mt-2" message={errors.email} />
             </div>
@@ -81,16 +81,19 @@
             {#if Boolean(page.props.mustVerifyEmail) && !user.email_verified_at}
                 <div>
                     <p class="-mt-4 text-sm text-muted-foreground">
-                        Your email address is unverified.
+                        {__('Your email address is unverified.')}
                         <TextLink href={send()} as="button">
-                            Click here to re-send the verification email.
+                            {__(
+                                'Click here to re-send the verification email.',
+                            )}
                         </TextLink>
                     </p>
 
                     {#if page.props.status === 'verification-link-sent'}
                         <div class="mt-2 text-sm font-medium text-green-600">
-                            A new verification link has been sent to your email
-                            address.
+                            {__(
+                                'A new verification link has been sent to your email address.',
+                            )}
                         </div>
                     {/if}
                 </div>
@@ -101,7 +104,7 @@
                 <Button
                     type="submit"
                     disabled={processing}
-                    data-test="update-profile-button">Save</Button
+                    data-test="update-profile-button">{__('Save')}</Button
                 >
             </div>
         {/snippet}

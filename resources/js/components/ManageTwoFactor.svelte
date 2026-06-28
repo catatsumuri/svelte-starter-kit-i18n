@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Form } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import ShieldCheck from 'lucide-svelte/icons/shield-check';
     import { onDestroy } from 'svelte';
     import Heading from '@/components/Heading.svelte';
@@ -14,6 +15,8 @@
         requiresConfirmation?: boolean;
         twoFactorEnabled?: boolean;
     };
+
+    const { __ } = useLang();
 
     let {
         canManageTwoFactor = false,
@@ -31,22 +34,22 @@
     <div class="space-y-6">
         <Heading
             variant="small"
-            title="Two-factor authentication"
-            description="Manage your two-factor authentication settings"
+            title={__('Two-factor authentication')}
+            description={__('Manage your two-factor authentication settings')}
         />
 
         {#if !twoFactorEnabled}
             <div class="flex flex-col items-start justify-start space-y-4">
                 <p class="text-muted-foreground text-sm">
-                    When you enable two-factor authentication, you will be
-                    prompted for a secure pin during login. This pin can be
-                    retrieved from a TOTP-supported application on your phone.
+                    {__(
+                        'When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.',
+                    )}
                 </p>
 
                 <div>
                     {#if twoFactorAuth.hasSetupData()}
                         <Button onclick={() => (showSetupModal = true)}>
-                            <ShieldCheck class="size-4" />Continue setup
+                            <ShieldCheck class="size-4" />{__('Continue setup')}
                         </Button>
                     {:else}
                         <Form
@@ -55,7 +58,7 @@
                         >
                             {#snippet children({ processing })}
                                 <Button type="submit" disabled={processing}>
-                                    Enable 2FA
+                                    {__('Enable 2FA')}
                                 </Button>
                             {/snippet}
                         </Form>
@@ -65,9 +68,9 @@
         {:else}
             <div class="flex flex-col items-start justify-start space-y-4">
                 <p class="text-muted-foreground text-sm">
-                    You will be prompted for a secure, random pin during login,
-                    which you can retrieve from the TOTP-supported application
-                    on your phone.
+                    {__(
+                        'You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.',
+                    )}
                 </p>
 
                 <div class="relative inline">
@@ -78,7 +81,7 @@
                                 type="submit"
                                 disabled={processing}
                             >
-                                Disable 2FA
+                                {__('Disable 2FA')}
                             </Button>
                         {/snippet}
                     </Form>

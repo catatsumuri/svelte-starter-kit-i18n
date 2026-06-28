@@ -2,12 +2,15 @@
     import type { UrlMethodPair } from '@inertiajs/core';
     import { router } from '@inertiajs/svelte';
     import { usePasskeyVerify } from '@laravel/passkeys/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import KeyRound from 'lucide-svelte/icons/key-round';
     import { untrack } from 'svelte';
     import InputError from '@/components/InputError.svelte';
     import { Button } from '@/components/ui/button';
     import { Separator } from '@/components/ui/separator';
     import { Spinner } from '@/components/ui/spinner';
+
+    const { __ } = useLang();
 
     type Props = {
         routes?: {
@@ -53,8 +56,8 @@
                 <KeyRound class="h-4 w-4" />
             {/if}
             {passkeyVerify.isLoading
-                ? (props.loadingLabel ?? 'Authenticating...')
-                : (props.label ?? 'Sign in with a passkey')}
+                ? (props.loadingLabel ?? __('Authenticating...'))
+                : (props.label ?? __('Sign in with a passkey'))}
         </Button>
 
         {#if passkeyVerify.error}
@@ -70,7 +73,7 @@
         </div>
         <div class="relative flex justify-center text-xs uppercase">
             <span class="bg-background px-2 text-muted-foreground">
-                {props.separator ?? 'Or continue with email'}
+                {props.separator ?? __('Or continue with email')}
             </span>
         </div>
     </div>

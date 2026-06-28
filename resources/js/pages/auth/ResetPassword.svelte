@@ -1,12 +1,6 @@
-<script module lang="ts">
-    export const layout = {
-        title: 'Reset password',
-        description: 'Please enter your new password below',
-    };
-</script>
-
 <script lang="ts">
-    import { Form } from '@inertiajs/svelte';
+    import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import InputError from '@/components/InputError.svelte';
     import PasswordInput from '@/components/PasswordInput.svelte';
@@ -15,6 +9,13 @@
     import { Label } from '@/components/ui/label';
     import { Spinner } from '@/components/ui/spinner';
     import { update } from '@/routes/password';
+
+    const { __ } = useLang();
+
+    setLayoutProps({
+        title: __('Reset password'),
+        description: __('Please enter your new password below'),
+    });
 
     let {
         token,
@@ -27,7 +28,7 @@
     } = $props();
 </script>
 
-<AppHead title="Reset password" />
+<AppHead title={__('Reset password')} />
 
 <Form
     {...update.form()}
@@ -37,7 +38,7 @@
     {#snippet children({ errors, processing })}
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">Email</Label>
+                <Label for="email">{__('Email')}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -51,26 +52,28 @@
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">Password</Label>
+                <Label for="password">{__('Password')}</Label>
                 <PasswordInput
                     id="password"
                     name="password"
                     autocomplete="new-password"
                     class="mt-1 block w-full"
-                    placeholder="Password"
+                    placeholder={__('Password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+                <Label for="password_confirmation"
+                    >{__('Confirm password')}</Label
+                >
                 <PasswordInput
                     id="password_confirmation"
                     name="password_confirmation"
                     autocomplete="new-password"
                     class="mt-1 block w-full"
-                    placeholder="Confirm password"
+                    placeholder={__('Confirm password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password_confirmation} />
@@ -83,7 +86,7 @@
                 data-test="reset-password-button"
             >
                 {#if processing}<Spinner />{/if}
-                Reset password
+                {__('Reset password')}
             </Button>
         </div>
     {/snippet}

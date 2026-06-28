@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Link, router } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import LogOut from 'lucide-svelte/icons/log-out';
     import Settings from 'lucide-svelte/icons/settings';
     import {
@@ -13,6 +14,8 @@
     import { logout } from '@/routes';
     import { edit } from '@/routes/profile';
     import type { User } from '@/types';
+
+    const { __ } = useLang();
 
     let {
         user,
@@ -44,7 +47,7 @@
                 onclick={props.onClick}
             >
                 <Settings class="mr-2 h-4 w-4" />
-                Settings
+                {__('Settings')}
             </Link>
         {/snippet}
     </DropdownMenuItem>
@@ -60,7 +63,7 @@
             data-test="logout-button"
         >
             <LogOut class="mr-2 h-4 w-4" />
-            Log out
+            {__('Log out')}
         </Link>
     {/snippet}
 </DropdownMenuItem>

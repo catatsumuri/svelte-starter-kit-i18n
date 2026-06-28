@@ -1,12 +1,6 @@
-<script module lang="ts">
-    export const layout = {
-        title: 'Create an account',
-        description: 'Enter your details below to create your account',
-    };
-</script>
-
 <script lang="ts">
-    import { Form } from '@inertiajs/svelte';
+    import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import InputError from '@/components/InputError.svelte';
     import PasswordInput from '@/components/PasswordInput.svelte';
@@ -18,10 +12,17 @@
     import { login } from '@/routes';
     import { store } from '@/routes/register';
 
+    const { __ } = useLang();
+
+    setLayoutProps({
+        title: __('Create an account'),
+        description: __('Enter your details below to create your account'),
+    });
+
     let { passwordRules }: { passwordRules: string } = $props();
 </script>
 
-<AppHead title="Register" />
+<AppHead title={__('Register')} />
 
 <Form
     {...store.form()}
@@ -31,20 +32,20 @@
     {#snippet children({ errors, processing })}
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="name">Name</Label>
+                <Label for="name">{__('Name')}</Label>
                 <Input
                     id="name"
                     type="text"
                     required
                     autocomplete="name"
                     name="name"
-                    placeholder="Full name"
+                    placeholder={__('Full name')}
                 />
                 <InputError message={errors.name} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">{__('Email address')}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -57,26 +58,28 @@
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">Password</Label>
+                <Label for="password">{__('Password')}</Label>
                 <PasswordInput
                     id="password"
                     required
                     autocomplete="new-password"
                     name="password"
-                    placeholder="Password"
+                    placeholder={__('Password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+                <Label for="password_confirmation"
+                    >{__('Confirm password')}</Label
+                >
                 <PasswordInput
                     id="password_confirmation"
                     required
                     autocomplete="new-password"
                     name="password_confirmation"
-                    placeholder="Confirm password"
+                    placeholder={__('Confirm password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password_confirmation} />
@@ -89,14 +92,14 @@
                 data-test="register-user-button"
             >
                 {#if processing}<Spinner />{/if}
-                Create account
+                {__('Create account')}
             </Button>
         </div>
 
         <div class="text-center text-sm text-muted-foreground">
-            Already have an account?
+            {__('Already have an account?')}
             <TextLink href={login()} class="underline underline-offset-4">
-                Log in
+                {__('Log in')}
             </TextLink>
         </div>
     {/snippet}

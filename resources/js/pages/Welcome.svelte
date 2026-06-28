@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Link, page } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import { toUrl } from '@/lib/utils';
     import { dashboard, login } from '@/routes';
@@ -7,10 +8,11 @@
     import { register } from '@/routes';
     /* @end-chisel-registration */
 
+    const { __ } = useLang();
     const auth = $derived(page.props.auth);
 </script>
 
-<AppHead title="Welcome">
+<AppHead title={__('Welcome')}>
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 </AppHead>
@@ -27,21 +29,21 @@
                     href={toUrl(dashboard())}
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
-                    Dashboard
+                    {__('Dashboard')}
                 </Link>
             {:else}
                 <Link
                     href={toUrl(login())}
                     class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                 >
-                    Log in
+                    {__('Log in')}
                 </Link>
                 <!-- @chisel-registration -->
                 <Link
                     href={toUrl(register())}
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
-                    Register
+                    {__('Register')}
                 </Link>
                 <!-- @end-chisel-registration -->
             {/if}

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import InputError from '@/components/InputError.svelte';
     import { Button } from '@/components/ui/button';
@@ -12,24 +13,28 @@
     import { store } from '@/routes/two-factor/login';
     import type { TwoFactorConfigContent } from '@/types';
 
+    const { __ } = useLang();
+
     let showRecoveryInput = $state(false);
     let code = $state('');
 
     const authConfigContent: TwoFactorConfigContent = $derived.by(() => {
         if (showRecoveryInput) {
             return {
-                title: 'Recovery code',
-                description:
+                title: __('Recovery code'),
+                description: __(
                     'Please confirm access to your account by entering one of your emergency recovery codes.',
-                buttonText: 'login using an authentication code',
+                ),
+                buttonText: __('login using an authentication code'),
             };
         }
 
         return {
-            title: 'Authentication code',
-            description:
+            title: __('Authentication code'),
+            description: __(
                 'Enter the authentication code provided by your authenticator application.',
-            buttonText: 'login using a recovery code',
+            ),
+            buttonText: __('login using a recovery code'),
         };
     });
 
@@ -47,7 +52,7 @@
     }
 </script>
 
-<AppHead title="Two-factor authentication" />
+<AppHead title={__('Two-factor authentication')} />
 
 <div class="space-y-6">
     {#if !showRecoveryInput}
@@ -80,10 +85,10 @@
                     <InputError message={errors.code} />
                 </div>
                 <Button type="submit" class="w-full" disabled={processing}
-                    >Continue</Button
+                    >{__('Continue')}</Button
                 >
                 <div class="text-center text-sm text-muted-foreground">
-                    <span>or you can </span>
+                    <span>{__('or you can')} </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
@@ -100,16 +105,16 @@
                 <Input
                     name="recovery_code"
                     type="text"
-                    placeholder="Enter recovery code"
+                    placeholder={__('Enter recovery code')}
                     required
                 />
                 <InputError message={errors.recovery_code} />
                 <Button type="submit" class="w-full" disabled={processing}
-                    >Continue</Button
+                    >{__('Continue')}</Button
                 >
 
                 <div class="text-center text-sm text-muted-foreground">
-                    <span>or you can </span>
+                    <span>{__('or you can')} </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"

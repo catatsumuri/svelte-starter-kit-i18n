@@ -1,19 +1,21 @@
-<script module lang="ts">
-    export const layout = {
-        title: 'Email verification',
-        description:
-            'Please verify your email address by clicking on the link we just emailed to you.',
-    };
-</script>
-
 <script lang="ts">
-    import { Form } from '@inertiajs/svelte';
+    import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import TextLink from '@/components/TextLink.svelte';
     import { Button } from '@/components/ui/button';
     import { Spinner } from '@/components/ui/spinner';
     import { logout } from '@/routes';
     import { send } from '@/routes/verification';
+
+    const { __ } = useLang();
+
+    setLayoutProps({
+        title: __('Email verification'),
+        description: __(
+            'Please verify your email address by clicking on the link we just emailed to you.',
+        ),
+    });
 
     let {
         status = '',
@@ -22,12 +24,13 @@
     } = $props();
 </script>
 
-<AppHead title="Email verification" />
+<AppHead title={__('Email verification')} />
 
 {#if status === 'verification-link-sent'}
     <div class="mb-4 text-center text-sm font-medium text-green-600">
-        A new verification link has been sent to the email address you provided
-        during registration.
+        {__(
+            'A new verification link has been sent to the email address you provided during registration.',
+        )}
     </div>
 {/if}
 
@@ -35,11 +38,11 @@
     {#snippet children({ processing })}
         <Button type="submit" disabled={processing} variant="secondary">
             {#if processing}<Spinner />{/if}
-            Resend verification email
+            {__('Resend verification email')}
         </Button>
 
         <TextLink href={logout()} as="button" class="mx-auto block text-sm">
-            Log out
+            {__('Log out')}
         </TextLink>
     {/snippet}
 </Form>

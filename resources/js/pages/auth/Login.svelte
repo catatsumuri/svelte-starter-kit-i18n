@@ -1,12 +1,6 @@
-<script module lang="ts">
-    export const layout = {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
-    };
-</script>
-
 <script lang="ts">
-    import { Form } from '@inertiajs/svelte';
+    import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import InputError from '@/components/InputError.svelte';
     import PasswordInput from '@/components/PasswordInput.svelte';
@@ -25,6 +19,13 @@
     import PasskeyVerify from '@/components/PasskeyVerify.svelte';
     /* @end-chisel-passkeys */
 
+    const { __ } = useLang();
+
+    setLayoutProps({
+        title: __('Log in to your account'),
+        description: __('Enter your email and password below to log in'),
+    });
+
     let {
         status = '',
         canResetPassword,
@@ -34,7 +35,7 @@
     } = $props();
 </script>
 
-<AppHead title="Log in" />
+<AppHead title={__('Log in')} />
 
 {#if status}
     <div class="mb-4 text-center text-sm font-medium text-green-600">
@@ -54,7 +55,7 @@
     {#snippet children({ errors, processing })}
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">{__('Email address')}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -68,10 +69,10 @@
 
             <div class="grid gap-2">
                 <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
+                    <Label for="password">{__('Password')}</Label>
                     {#if canResetPassword}
                         <TextLink href={request()} class="text-sm">
-                            Forgot your password?
+                            {__('Forgot your password?')}
                         </TextLink>
                     {/if}
                 </div>
@@ -80,7 +81,7 @@
                     name="password"
                     required
                     autocomplete="current-password"
-                    placeholder="Password"
+                    placeholder={__('Password')}
                 />
                 <InputError message={errors.password} />
             </div>
@@ -88,7 +89,7 @@
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" />
-                    <span>Remember me</span>
+                    <span>{__('Remember me')}</span>
                 </Label>
             </div>
 
@@ -99,14 +100,14 @@
                 data-test="login-button"
             >
                 {#if processing}<Spinner />{/if}
-                Log in
+                {__('Log in')}
             </Button>
         </div>
 
         <!-- @chisel-registration -->
         <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink href={register()}>Sign up</TextLink>
+            {__("Don't have an account?")}
+            <TextLink href={register()}>{__('Sign up')}</TextLink>
         </div>
         <!-- @end-chisel-registration -->
     {/snippet}

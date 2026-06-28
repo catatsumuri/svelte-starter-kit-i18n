@@ -1,22 +1,23 @@
-<script module lang="ts">
+<script lang="ts">
+    import { setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
+    import AppHead from '@/components/AppHead.svelte';
+    import PlaceholderPattern from '@/components/PlaceholderPattern.svelte';
     import { dashboard } from '@/routes';
 
-    export const layout = {
+    const { __ } = useLang();
+
+    setLayoutProps({
         breadcrumbs: [
             {
-                title: 'Dashboard',
+                title: __('Dashboard'),
                 href: dashboard(),
             },
         ],
-    };
+    });
 </script>
 
-<script lang="ts">
-    import AppHead from '@/components/AppHead.svelte';
-    import PlaceholderPattern from '@/components/PlaceholderPattern.svelte';
-</script>
-
-<AppHead title="Dashboard" />
+<AppHead title={__('Dashboard')} />
 
 <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <div class="grid auto-rows-min gap-4 md:grid-cols-3">

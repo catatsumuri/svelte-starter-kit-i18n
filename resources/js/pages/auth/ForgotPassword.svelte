@@ -1,12 +1,6 @@
-<script module lang="ts">
-    export const layout = {
-        title: 'Forgot password',
-        description: 'Enter your email to receive a password reset link',
-    };
-</script>
-
 <script lang="ts">
-    import { Form } from '@inertiajs/svelte';
+    import { Form, setLayoutProps } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import InputError from '@/components/InputError.svelte';
     import TextLink from '@/components/TextLink.svelte';
@@ -17,6 +11,13 @@
     import { login } from '@/routes';
     import { email } from '@/routes/password';
 
+    const { __ } = useLang();
+
+    setLayoutProps({
+        title: __('Forgot password'),
+        description: __('Enter your email to receive a password reset link'),
+    });
+
     let {
         status = '',
     }: {
@@ -24,7 +25,7 @@
     } = $props();
 </script>
 
-<AppHead title="Forgot password" />
+<AppHead title={__('Forgot password')} />
 
 {#if status}
     <div class="mb-4 text-center text-sm font-medium text-green-600">
@@ -36,7 +37,7 @@
     <Form {...email.form()}>
         {#snippet children({ errors, processing })}
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">{__('Email address')}</Label>
                 <Input
                     id="email"
                     type="email"
@@ -55,14 +56,14 @@
                     data-test="email-password-reset-link-button"
                 >
                     {#if processing}<Spinner />{/if}
-                    Email password reset link
+                    {__('Email password reset link')}
                 </Button>
             </div>
         {/snippet}
     </Form>
 
     <div class="space-x-1 text-center text-sm text-muted-foreground">
-        <span>Or, return to</span>
-        <TextLink href={login()}>log in</TextLink>
+        <span>{__('Or, return to')}</span>
+        <TextLink href={login()}>{__('log in')}</TextLink>
     </div>
 </div>

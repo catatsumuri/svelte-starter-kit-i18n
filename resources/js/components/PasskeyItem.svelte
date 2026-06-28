@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import KeyRound from 'lucide-svelte/icons/key-round';
     import Trash2 from 'lucide-svelte/icons/trash-2';
     import { Button } from '@/components/ui/button';
@@ -12,6 +13,8 @@
         DialogTrigger,
     } from '@/components/ui/dialog';
     import type { Passkey } from '@/types/auth';
+
+    const { __ } = useLang();
 
     let {
         passkey,
@@ -50,10 +53,12 @@
                 {/if}
             </div>
             <p class="text-sm text-muted-foreground">
-                Added {passkey.created_at_diff}
+                {__('Added')}
+                {passkey.created_at_diff}
                 {#if passkey.last_used_at_diff}
                     <span class="mx-1 text-muted-foreground/50">/</span>
-                    Last used {passkey.last_used_at_diff}
+                    {__('Last used')}
+                    {passkey.last_used_at_diff}
                 {/if}
             </p>
         </div>
@@ -69,22 +74,23 @@
                     onclick={props.onClick}
                 >
                     <Trash2 class="h-4 w-4" />
-                    <span class="sr-only">Remove</span>
+                    <span class="sr-only">{__('Remove')}</span>
                 </Button>
             {/snippet}
         </DialogTrigger>
 
         <DialogContent>
-            <DialogTitle>Remove passkey</DialogTitle>
+            <DialogTitle>{__('Remove passkey')}</DialogTitle>
             <DialogDescription>
-                Are you sure you want to remove the "{passkey.name}" passkey?
-                You will no longer be able to use it to sign in.
+                {__(
+                    'Are you sure you want to remove the ":name" passkey? You will no longer be able to use it to sign in.',
+                ).replace(':name', passkey.name)}
             </DialogDescription>
             <DialogFooter>
                 <DialogClose asChild>
                     {#snippet children(props)}
                         <Button variant="secondary" onclick={props.onClick}>
-                            Cancel
+                            {__('Cancel')}
                         </Button>
                     {/snippet}
                 </DialogClose>
@@ -93,7 +99,7 @@
                     disabled={isDeleting}
                     onclick={handleDelete}
                 >
-                    {isDeleting ? 'Removing...' : 'Remove passkey'}
+                    {isDeleting ? __('Removing...') : __('Remove passkey')}
                 </Button>
             </DialogFooter>
         </DialogContent>

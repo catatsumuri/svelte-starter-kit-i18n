@@ -1,21 +1,10 @@
-<script module lang="ts">
-    import { edit } from '@/routes/security';
-
-    export const layout = {
-        breadcrumbs: [
-            {
-                title: 'Security settings',
-                href: edit(),
-            },
-        ],
-    };
-</script>
-
 <script lang="ts">
     import {
         Form /* @chisel-2fa-or-passkeys */,
         page /* @end-chisel-2fa-or-passkeys */,
+        setLayoutProps,
     } from '@inertiajs/svelte';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
     import AppHead from '@/components/AppHead.svelte';
     import Heading from '@/components/Heading.svelte';
@@ -30,6 +19,19 @@
     import ManagePasskeys from '@/components/ManagePasskeys.svelte';
     import type { Props as ManagePasskeysProps } from '@/components/ManagePasskeys.svelte';
     /* @end-chisel-passkeys */
+    import { edit } from '@/routes/security';
+
+    const { __ } = useLang();
+
+    setLayoutProps({
+        breadcrumbs: [
+            {
+                title: __('Security settings'),
+                href: edit(),
+            },
+        ],
+    });
+
     /* @chisel-2fa */
     const canManageTwoFactor = $derived(Boolean(page.props.canManageTwoFactor));
     const requiresConfirmation = $derived(
@@ -49,15 +51,17 @@
     let { passwordRules }: { passwordRules: string } = $props();
 </script>
 
-<AppHead title="Security settings" />
+<AppHead title={__('Security settings')} />
 
-<h1 class="sr-only">Security settings</h1>
+<h1 class="sr-only">{__('Security settings')}</h1>
 
 <div class="space-y-6">
     <Heading
         variant="small"
-        title="Update password"
-        description="Ensure your account is using a long, random password to stay secure"
+        title={__('Update password')}
+        description={__(
+            'Ensure your account is using a long, random password to stay secure',
+        )}
     />
 
     <Form
@@ -69,38 +73,40 @@
     >
         {#snippet children({ errors, processing })}
             <div class="grid gap-2">
-                <Label for="current_password">Current password</Label>
+                <Label for="current_password">{__('Current password')}</Label>
                 <PasswordInput
                     id="current_password"
                     name="current_password"
                     class="mt-1 block w-full"
                     autocomplete="current-password"
-                    placeholder="Current password"
+                    placeholder={__('Current password')}
                 />
                 <InputError message={errors.current_password} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">New password</Label>
+                <Label for="password">{__('New password')}</Label>
                 <PasswordInput
                     id="password"
                     name="password"
                     class="mt-1 block w-full"
                     autocomplete="new-password"
-                    placeholder="New password"
+                    placeholder={__('New password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password} />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+                <Label for="password_confirmation"
+                    >{__('Confirm password')}</Label
+                >
                 <PasswordInput
                     id="password_confirmation"
                     name="password_confirmation"
                     class="mt-1 block w-full"
                     autocomplete="new-password"
-                    placeholder="Confirm password"
+                    placeholder={__('Confirm password')}
                     passwordrules={passwordRules}
                 />
                 <InputError message={errors.password_confirmation} />
@@ -112,7 +118,7 @@
                     disabled={processing}
                     data-test="update-password-button"
                 >
-                    Save
+                    {__('Save')}
                 </Button>
             </div>
         {/snippet}
