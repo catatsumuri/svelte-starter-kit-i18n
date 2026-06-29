@@ -53,12 +53,13 @@
                 {/if}
             </div>
             <p class="text-sm text-muted-foreground">
-                {__('Added')}
-                {passkey.created_at_diff}
+                {__('Added :time').replace(':time', passkey.created_at_diff)}
                 {#if passkey.last_used_at_diff}
                     <span class="mx-1 text-muted-foreground/50">/</span>
-                    {__('Last used')}
-                    {passkey.last_used_at_diff}
+                    {__('Last used :time').replace(
+                        ':time',
+                        passkey.last_used_at_diff,
+                    )}
                 {/if}
             </p>
         </div>
@@ -74,7 +75,7 @@
                     onclick={props.onClick}
                 >
                     <Trash2 class="h-4 w-4" />
-                    <span class="sr-only">{__('Remove')}</span>
+                    <span class="sr-only">{__('Remove passkey')}</span>
                 </Button>
             {/snippet}
         </DialogTrigger>

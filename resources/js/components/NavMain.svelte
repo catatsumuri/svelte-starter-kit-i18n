@@ -7,6 +7,7 @@
         SidebarMenuButton,
         SidebarMenuItem,
     } from '@/components/ui/sidebar';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import { currentUrlState } from '@/lib/currentUrl.svelte';
     import { toUrl } from '@/lib/utils';
     import type { NavItem } from '@/types';
@@ -17,18 +18,19 @@
         items: NavItem[];
     } = $props();
 
+    const { __ } = useLang();
     const url = currentUrlState();
 </script>
 
 <SidebarGroup class="px-2 py-0">
-    <SidebarGroupLabel>Platform</SidebarGroupLabel>
+    <SidebarGroupLabel>{__('Platform')}</SidebarGroupLabel>
     <SidebarMenu>
         {#each items as item (toUrl(item.href))}
             <SidebarMenuItem>
                 <SidebarMenuButton
                     asChild
                     isActive={url.isCurrentUrl(item.href, url.currentUrl)}
-                    tooltip={item.title}
+                    tooltip={__(item.title)}
                 >
                     {#snippet children(props)}
                         <Link
@@ -39,7 +41,7 @@
                             {#if item.icon}
                                 <item.icon class="size-4 shrink-0" />
                             {/if}
-                            <span>{item.title}</span>
+                            <span>{__(item.title)}</span>
                         </Link>
                     {/snippet}
                 </SidebarMenuButton>

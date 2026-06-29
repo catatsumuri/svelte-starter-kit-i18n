@@ -86,7 +86,7 @@
                 autofocus
             />
             <p class="text-xs text-muted-foreground">
-                {__('A name helps you identify this passkey later.')}
+                {__('Give this passkey a name to help you identify it later.')}
             </p>
         </div>
 

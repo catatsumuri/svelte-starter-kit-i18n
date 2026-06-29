@@ -67,8 +67,9 @@
                 {:else}
                     <Eye class="size-4" />
                 {/if}
-                {isRecoveryCodesVisible ? __('Hide') : __('View')}
-                {__('recovery codes')}
+                {isRecoveryCodesVisible
+                    ? __('Hide recovery codes')
+                    : __('View recovery codes')}
             </Button>
 
             {#if isRecoveryCodesVisible && twoFactorAuth.state.recoveryCodesList.length}
@@ -121,10 +122,8 @@
                     </div>
                     <p class="text-xs text-muted-foreground select-none">
                         {__(
-                            'Each recovery code can be used once to access your account and will be removed after use. If you need more, click',
+                            'Each recovery code can be used once to access your account and will be removed after use. If you need more, click Regenerate codes above.',
                         )}
-                        <span class="font-bold">{__('Regenerate codes')}</span>
-                        {__('above.')}
                     </p>
                 </div>
             {/if}

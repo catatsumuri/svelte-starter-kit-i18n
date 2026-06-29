@@ -4,6 +4,7 @@
     import Heading from '@/components/Heading.svelte';
     import { Button } from '@/components/ui/button';
     import { Separator } from '@/components/ui/separator';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import { currentUrlState } from '@/lib/currentUrl.svelte';
     import { toUrl } from '@/lib/utils';
     import { edit as editAppearance } from '@/routes/appearance';
@@ -32,20 +33,21 @@
         },
     ];
 
+    const { __ } = useLang();
     const url = currentUrlState();
 </script>
 
 <div class="px-4 py-6">
     <Heading
-        title="Settings"
-        description="Manage your profile and account settings"
+        title={__('Settings')}
+        description={__('Manage your profile and account settings')}
     />
 
     <div class="flex flex-col lg:flex-row lg:space-x-12">
         <aside class="w-full max-w-xl lg:w-48">
             <nav
                 class="flex flex-col space-y-1 space-x-0"
-                aria-label="Settings"
+                aria-label={__('Settings')}
             >
                 {#each sidebarNavItems as item (toUrl(item.href))}
                     <Button
@@ -60,7 +62,7 @@
                     >
                         {#snippet children(props)}
                             <Link href={toUrl(item.href)} class={props.class}>
-                                {item.title}
+                                {__(item.title)}
                             </Link>
                         {/snippet}
                     </Button>

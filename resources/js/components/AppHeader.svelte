@@ -38,6 +38,7 @@
         TooltipProvider,
         TooltipTrigger,
     } from '@/components/ui/tooltip';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import UserMenuContent from '@/components/UserMenuContent.svelte';
     import { currentUrlState } from '@/lib/currentUrl.svelte';
     import { getInitials } from '@/lib/initials';
@@ -51,6 +52,7 @@
         breadcrumbs?: BreadcrumbItem[];
     } = $props();
 
+    const { __ } = useLang();
     const auth = $derived(page.props.auth);
     const url = currentUrlState();
 
@@ -99,7 +101,9 @@
                         {/snippet}
                     </SheetTrigger>
                     <SheetContent side="left" class="w-[300px] p-6">
-                        <SheetTitle class="sr-only">Navigation menu</SheetTitle>
+                        <SheetTitle class="sr-only"
+                            >{__('Navigation menu')}</SheetTitle
+                        >
                         <SheetHeader class="flex justify-start text-left">
                             <AppLogoIcon
                                 class="size-6 fill-current text-black dark:text-white"
@@ -122,7 +126,7 @@
                                         {#if item.icon}
                                             <item.icon class="h-5 w-5" />
                                         {/if}
-                                        {item.title}
+                                        {__(item.title)}
                                     </Link>
                                 {/each}
                             </nav>
@@ -137,7 +141,7 @@
                                         {#if item.icon}
                                             <item.icon class="h-5 w-5" />
                                         {/if}
-                                        <span>{item.title}</span>
+                                        <span>{__(item.title)}</span>
                                     </a>
                                 {/each}
                             </div>
@@ -172,7 +176,7 @@
                                     {#if item.icon}
                                         <item.icon class="mr-2 h-4 w-4" />
                                     {/if}
-                                    {item.title}
+                                    {__(item.title)}
                                 </Link>
                                 {#if url.isCurrentUrl(item.href, url.currentUrl)}
                                     <div
@@ -211,7 +215,7 @@
                                                 class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-9 w-9 group cursor-pointer"
                                             >
                                                 <span class="sr-only"
-                                                    >{item.title}</span
+                                                    >{__(item.title)}</span
                                                 >
                                                 <item.icon
                                                     class="size-5 opacity-80 group-hover:opacity-100"
@@ -220,7 +224,7 @@
                                         {/snippet}
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p>{item.title}</p>
+                                        <p>{__(item.title)}</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>

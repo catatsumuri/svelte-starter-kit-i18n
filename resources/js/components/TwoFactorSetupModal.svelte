@@ -69,7 +69,7 @@
         return {
             title: __('Enable two-factor authentication'),
             description: __(
-                'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app',
+                'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.',
             ),
             buttonText: __('Continue'),
         };

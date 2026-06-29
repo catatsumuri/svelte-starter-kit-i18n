@@ -6,6 +6,7 @@
         SidebarMenuButton,
         SidebarMenuItem,
     } from '@/components/ui/sidebar';
+    import { useLang } from '@erag/lang-sync-inertia/svelte';
     import { toUrl } from '@/lib/utils';
     import type { NavItem } from '@/types';
 
@@ -16,6 +17,8 @@
         items: NavItem[];
         class?: string;
     } = $props();
+
+    const { __ } = useLang();
 </script>
 
 <SidebarGroup class={`group-data-[collapsible=icon]:p-0 ${className}`}>
@@ -38,7 +41,7 @@
                                 {#if item.icon}
                                     <item.icon class="size-4 shrink-0" />
                                 {/if}
-                                <span>{item.title}</span>
+                                <span>{__(item.title)}</span>
                             </a>
                         {/snippet}
                     </SidebarMenuButton>
