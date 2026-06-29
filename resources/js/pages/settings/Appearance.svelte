@@ -8,14 +8,16 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        breadcrumbs: [
-            {
-                title: __('Appearance settings'),
-                href: editAppearance(),
-            },
-        ],
-    });
+    $effect(() =>
+        setLayoutProps({
+            breadcrumbs: [
+                {
+                    title: __('Appearance settings'),
+                    href: editAppearance(),
+                },
+            ],
+        }),
+    );
 </script>
 
 <AppHead title={__('Appearance settings')} />

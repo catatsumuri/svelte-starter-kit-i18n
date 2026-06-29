@@ -12,10 +12,12 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        title: __('Reset password'),
-        description: __('Please enter your new password below'),
-    });
+    $effect(() =>
+        setLayoutProps({
+            title: __('Reset password'),
+            description: __('Please enter your new password below'),
+        }),
+    );
 
     let {
         token,

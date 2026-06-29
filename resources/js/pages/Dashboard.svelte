@@ -7,14 +7,16 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        breadcrumbs: [
-            {
-                title: __('Dashboard'),
-                href: dashboard(),
-            },
-        ],
-    });
+    $effect(() =>
+        setLayoutProps({
+            breadcrumbs: [
+                {
+                    title: __('Dashboard'),
+                    href: dashboard(),
+                },
+            ],
+        }),
+    );
 </script>
 
 <AppHead title={__('Dashboard')} />

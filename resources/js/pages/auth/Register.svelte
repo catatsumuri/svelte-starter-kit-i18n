@@ -14,10 +14,12 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        title: __('Create an account'),
-        description: __('Enter your details below to create your account'),
-    });
+    $effect(() =>
+        setLayoutProps({
+            title: __('Create an account'),
+            description: __('Enter your details below to create your account'),
+        }),
+    );
 
     let { passwordRules }: { passwordRules: string } = $props();
 </script>

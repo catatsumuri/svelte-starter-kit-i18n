@@ -13,10 +13,14 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        title: __('Forgot password'),
-        description: __('Enter your email to receive a password reset link'),
-    });
+    $effect(() =>
+        setLayoutProps({
+            title: __('Forgot password'),
+            description: __(
+                'Enter your email to receive a password reset link',
+            ),
+        }),
+    );
 
     let {
         status = '',

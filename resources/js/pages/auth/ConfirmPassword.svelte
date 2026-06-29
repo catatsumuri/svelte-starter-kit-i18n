@@ -18,12 +18,14 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        title: __('Confirm password'),
-        description: __(
-            'This is a secure area of the application. Please confirm your password before continuing.',
-        ),
-    });
+    $effect(() =>
+        setLayoutProps({
+            title: __('Confirm password'),
+            description: __(
+                'This is a secure area of the application. Please confirm your password before continuing.',
+            ),
+        }),
+    );
 </script>
 
 <AppHead title={__('Confirm password')} />

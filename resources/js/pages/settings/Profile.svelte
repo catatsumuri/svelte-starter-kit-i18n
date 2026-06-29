@@ -19,14 +19,16 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        breadcrumbs: [
-            {
-                title: __('Profile settings'),
-                href: edit(),
-            },
-        ],
-    });
+    $effect(() =>
+        setLayoutProps({
+            breadcrumbs: [
+                {
+                    title: __('Profile settings'),
+                    href: edit(),
+                },
+            ],
+        }),
+    );
 
     const user = $derived(page.props.auth.user);
 </script>

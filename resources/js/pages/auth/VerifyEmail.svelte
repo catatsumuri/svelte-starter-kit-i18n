@@ -10,12 +10,14 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        title: __('Email verification'),
-        description: __(
-            'Please verify your email address by clicking on the link we just emailed to you.',
-        ),
-    });
+    $effect(() =>
+        setLayoutProps({
+            title: __('Email verification'),
+            description: __(
+                'Please verify your email address by clicking on the link we just emailed to you.',
+            ),
+        }),
+    );
 
     let {
         status = '',

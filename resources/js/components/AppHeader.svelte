@@ -39,6 +39,7 @@
         TooltipTrigger,
     } from '@/components/ui/tooltip';
     import { useLang } from '@erag/lang-sync-inertia/svelte';
+    import LocaleSwitcher from '@/components/LocaleSwitcher.svelte';
     import UserMenuContent from '@/components/UserMenuContent.svelte';
     import { currentUrlState } from '@/lib/currentUrl.svelte';
     import { getInitials } from '@/lib/initials';
@@ -232,6 +233,7 @@
                     </div>
                 </div>
 
+                <LocaleSwitcher />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         {#snippet children(props)}

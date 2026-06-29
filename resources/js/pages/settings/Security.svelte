@@ -23,14 +23,16 @@
 
     const { __ } = useLang();
 
-    setLayoutProps({
-        breadcrumbs: [
-            {
-                title: __('Security settings'),
-                href: edit(),
-            },
-        ],
-    });
+    $effect(() =>
+        setLayoutProps({
+            breadcrumbs: [
+                {
+                    title: __('Security settings'),
+                    href: edit(),
+                },
+            ],
+        }),
+    );
 
     /* @chisel-2fa */
     const canManageTwoFactor = $derived(Boolean(page.props.canManageTwoFactor));
